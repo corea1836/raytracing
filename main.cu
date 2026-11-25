@@ -1,5 +1,7 @@
 #include <iostream>
 
+#include "utils/Color.h"
+
 int main()
 {
     int ImageWidth = 256;
@@ -9,18 +11,11 @@ int main()
 
     for (int j = 0; j < ImageHeight; j++)
     {
+        std::clog << "\rScanlines remaining: " << (ImageHeight - j) << ' ' << std::flush;
         for (int i = 0; i < ImageWidth; i++)
         {
-            std::clog << "\rScanlines remaining: " << (ImageHeight - j) << ' ' << std::flush;
-            auto r = double(i) / (ImageWidth - 1);
-            auto g = double(j) / (ImageHeight - 1);
-            auto b = 0.0;
-
-            int ir = int(255.999 * r);
-            int ig = int(255.999 * g);
-            int ib = int(255.999 * b);
-
-            std::cout << ir << ' ' << ig << ' ' << ib << '\n';
+            auto PixelColor = Color(double(i)/(ImageWidth-1), double(j)/(ImageHeight-1), 0);
+            WriteColor(std::cout, PixelColor);
         }
     }
 
